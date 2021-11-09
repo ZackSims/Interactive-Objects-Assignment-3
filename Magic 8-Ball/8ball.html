@@ -1,0 +1,83 @@
+<!--The base of this design came from a sketch I found at https://editor.p5js.org/k1406391@students.katyisd.org/sketches/HJEgY7I3m that shows an 8-ball idea where the user clicks the screen to get a response from an 8-ball. I took this idea as inspiration and created a voice recognition based 8-ball that gives the user yes or no answers to the questions they ask.-->
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+    <script src="../lib/p5.speech.js"></script>
+
+
+    <script>
+        var myRec = new p5.SpeechRec('en-US'); // new P5.SpeechRec object
+        myRec.continuous = true; // do continuous recognition
+
+        var myVoice = new p5.Speech;
+
+
+        var answer = "8";
+        var yes = ["It is certain", "It is decidedly so", " Without a Doubt!", "Yes - definitely", "You may rely on it", "As I see it, yes", "As I see it, yes", "Most likely", "Outlook is good", "Yes", "Signes point to yes"];
+
+
+        var no = ["Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is - No", "Outlook is not so good", "Very doubtful"];
+
+
+
+
+
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+
+            myRec.onResult = showResult;
+            myRec.start();
+
+
+
+        }
+
+        function draw() {
+            background(255);
+            // text
+            fill(255);
+            fill(1);
+            noStroke();
+            textSize(32);
+            text("Ask the Magic 8-Ball any Yes or No question!", 575, 125);
+
+            //8ball
+            stroke(33);
+            strokeWeight(5);
+            fill(0, 0, 0);
+            ellipse(900, 430, 500, 500);
+            fill(22);
+            ellipse(855, 380, 200, 200);
+
+            // answer text
+            strokeWeight(0);
+            fill(255, 255, 255);
+            textSize(20);
+            textAlign(CENTER);
+            text(answer, 850, 390);
+
+        }
+
+
+
+        function showResult() {
+            console.log(Math.floor(random(2)));
+            var result = (Math.floor(random(2)));
+            if (myRec.resultValue == 1) {
+                answer = yes[Math.floor(random(4))];
+            }
+            if (myRec.resultValue == 0) {
+                answer = no[Math.floor(random(4))];
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
